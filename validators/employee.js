@@ -1,26 +1,14 @@
-import { env } from "@/utils/envManager";
 import moment from "moment";
 import z from "zod";
+import { firstNameSchema } from "./firstName";
+import { lastNameSchema } from "./lastName";
+import { parentNameSchema } from "./parentValidator";
 
 const { NEXT_PUBLIC_MAXIMUM_AGE, NEXT_PUBLIC_MINIMUM_AGE } = process.env;
 
 export const employeeDataSchema = z.object({
-  firstName: z
-    .string()
-    .min(2, "First Name must be at least 2 characters long")
-    .max(50, "First Name must be less than 50 characters long")
-    .regex(
-      /^[a-zA-Z-/]+$/,
-      "First name must contain only letters and optional '-' character",
-    ),
-  lastName: z
-    .string()
-    .min(2, "Last Name must be at least 2 characters long")
-    .max(50, "Last Name must be less than 50 characters long")
-    .regex(
-      /^[a-zA-Z-/]+$/,
-      "Last name must contain only letters and optional '-' character",
-    ),
+  firstName: firstNameSchema,
+  lastName: lastNameSchema,
   birthDate: z
     .string()
     .regex(
@@ -45,15 +33,7 @@ export const employeeDataSchema = z.object({
         message: `Birth date is out of interval; It must be greater than ${NEXT_PUBLIC_MINIMUM_AGE} and lower than ${NEXT_PUBLIC_MAXIMUM_AGE}`,
       },
     ),
-  parentName: z
-    .string()
-    .min(2, "Parent name must be at least 2 characters long")
-    .max(100, "Parent name must be maximum 100 characters long")
-    .regex(
-      /^(?!(?:.* ){5,})[a-zA-Z ]+$/,
-      "Parent name must contain only letters and maximum two spaces",
-    )
-    .optional(),
+  parentName: parentNameSchema.optional(),
 });
 
 export const updateEmployeeDataSchema = employeeDataSchema.extend({

@@ -1,7 +1,12 @@
 import moment from "moment";
 import z from "zod";
 
-const { NEXT_PUBLIC_MAXIMUM_AGE, NEXT_PUBLIC_MINIMUM_AGE } = process.env;
+const { NEXT_PUBLIC_MAXIMUM_AGE, NEXT_PUBLIC_MINIMUM_AGE } = (() => ({
+  NEXT_PUBLIC_MAXIMUM_AGE: process.env.NEXT_PUBLIC_MAXIMUM_AGE,
+  NEXT_PUBLIC_MINIMUM_AGE: process.env.NEXT_PUBLIC_MINIMUM_AGE,
+}))();
+
+console.log(process.env.NEXT_PUBLIC_MAXIMUM_AGE);
 
 export const birthDateSchema = z
   .string()

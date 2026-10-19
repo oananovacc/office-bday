@@ -54,6 +54,7 @@ export default function AddEmployeeModal({
       if (validationErrors) setValidationErrors((_) => ({}));
     } catch (err) {
       console.log(err);
+      console.log('test error');
       err.issues.map((issue) => {
         errors = {
           ...errors,

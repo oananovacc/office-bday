@@ -123,10 +123,10 @@ export default function EditEmployeeModal({
       }`}
     >
       <form
-        className="relative bg-slate-800 flex flex-col px-3 lg:px-10 py-5 gap-y-10 rounded-md border border-slate-900/50 m-5 md:max-w-[50%] w-full md:w-min transition-[width] duration-300"
+        className="relative bg-slate-800 flex flex-col px-3 lg:px-10 py-5 gap-y-10 rounded-md border border-slate-900/50 m-5 md:max-w-[50%] w-full md:w-min transition-[width] duration-300 min-w-min"
         onSubmit={submitHandler}
       >
-        <h1 className="text-xl text-white">Edit User</h1>
+        <h1 className="text-xl text-white text-nowrap w-min">Edit User</h1>
         {/* close button */}
         <div className="absolute right-4 top-4 p-1 border border-slate-300 rounded-md hover:cursor-pointer">
           <CloseIcon
@@ -135,7 +135,7 @@ export default function EditEmployeeModal({
           ></CloseIcon>
         </div>
         {/* user info */}
-        {loadingState === "done" ? (
+        { loadingState === "done" ? (
           <>
             <div className="flex gap-x-3 gap-y-5 flex-wrap justify-center">
               {Object.keys(employeeData).map((employeeFieldName, index) => {
@@ -167,9 +167,9 @@ export default function EditEmployeeModal({
             </button>
           </>
         ) : (
-          <div className="w-52 h-60 flex items-center justify-center flex-col gap-y-3">
+          <div className="w-full h-60 flex items-center justify-center flex-col gap-y-3">
             <Spinner className="fill-blue-500 text-slate-700/20" />
-            <span className="text-slate-300">Fetching data...</span>
+            <span className="text-slate-300 text-nowrap px-10">Fetching data...</span>
           </div>
         )}
       </form>

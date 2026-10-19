@@ -1,7 +1,8 @@
 import z, { success } from "zod";
 import Employee from "@/models/employees";
 import moment from "moment";
-import { env } from "process";
+import { firstNameSchema } from "./firstName";
+import { lastNameSchema } from "./lastName";
 
 function convertToNumber(value) {
   console.log({ val: value });
@@ -38,18 +39,8 @@ const validationSchema = z
         .min(1, "Page number must be greater than 1")
         .optional(),
     ),
-    first_name: z
-      .string()
-      .min(2, "First Name must be at least 2 characters long")
-      .max(50, "First Name must be less than 50 characters long")
-      .regex(/^[a-zA-Z]+$/, "First name must contain only letters")
-      .optional(),
-    last_name: z
-      .string()
-      .min(2, "Last Name must be at least 2 characters long")
-      .max(50, "Last Name must be less than 50 characters long")
-      .regex(/^[a-zA-Z]+$/, "Last name must contain only letters")
-      .optional(),
+    first_name: firstNameSchema.optional(),
+    last_name: lastNameSchema.optional(),
     age: z.preprocess(
       convertToNumber,
       z
